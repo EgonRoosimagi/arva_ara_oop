@@ -13,6 +13,7 @@ class Model:
     stopwatch = Stopwatch()
 
     def __init__(self):
+
         self.reset_game()
 
     def reset_game(self):
@@ -81,7 +82,8 @@ class Model:
 
                 self.lets_play()
             elif user_input == 2:
-                self.show_leaderboard()  #näita edetabelit
+                #self.show_leaderboard()  #näita edetabelit
+                self.show_no_cheater()
                 self.show_menu()  # lähme mängima
             elif user_input ==3:
                 print('Bye, bye :)')
@@ -92,9 +94,31 @@ class Model:
     def show_leaderboard(self):
         """Näita edetabelit"""
         db = Database()
-        data = db.read_records()
+        data = db.no_cheater()
         if data:
             for record in data:
                 print(record) # name -> record[1]
 
+    def show_no_cheater(self):
+        """Edetabel ausatele mängijatele"""
+        db = Database()
+        data = db.no_cheater()
+        if data:
+
+            print()
+            self.manual_table(data)
+            print()
+
+
+    def manual_table(self, data):
+        print('Nimi             Number Sammud Mängu aeg')
+        for row in data:
+            print(f'{row[0][:15]:<16} {row[1]:>6} {row[2]:>6} {self.format_time(row[3]):>9}')
+
+    @staticmethod
+    def format_time(seconds):
+        hours = seconds // 3600
+        minutes = (seconds % 3600) // 60
+        seconds = seconds % 60
+        return f'{hours:02}:{minutes:02}:{seconds:02}'
 

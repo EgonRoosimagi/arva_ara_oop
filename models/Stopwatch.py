@@ -33,6 +33,5 @@ class Stopwatch:
         hours = self.seconds // 3600
         minutes = (self.seconds % 3600) // 60
         seconds = self.seconds % 60
+        return f'{hours:02}:{minutes:02}:{seconds:02}'
 
-
-        return f"{hours:02}:{minutes:02}:{seconds:02}"
