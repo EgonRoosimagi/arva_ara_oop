@@ -5,7 +5,9 @@ import time
 
 if __name__ == '__main__':
     model = Model()
-    model.lets_play()
+    model.show_menu()
+    #TODO Järgnev rida oli enne show_menu osa
+    #model.lets_play()
 
 
 
