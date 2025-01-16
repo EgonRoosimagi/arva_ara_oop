@@ -1,12 +1,11 @@
 from models.Stopwatch import Stopwatch
 from models.Database import Database
+from models.Model import Model
+import time
 
 if __name__ == '__main__':
+    model = Model()
+    model.lets_play()
 
-    db = Database()
-    data = db.read_records()
-    if data:
-        for record in data:
-            print(record)
 
 
