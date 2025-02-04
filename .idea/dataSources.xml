@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlite:C:\Users\kasutaja\Documents\pyapps\arva_ara_oop\game_leaderboard_v2.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="game_leaderboard_v2 [2]" uuid="21b659e0-dfca-44ee-bcd4-61fd8aa92533">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Admin\PycharmProjects\arva_ara_oop\game_leaderboard_v2.db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

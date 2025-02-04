@@ -71,22 +71,51 @@ class Database:
         else:
             print('Ühendus puudub! Palun loo ühendus andmebaasiga.')
 
-
     def no_cheater(self):
         if self.cursor:
             try:
-                sql = f'SELECT name, quess, steps, game_length FROM {self.table} WHERE cheater =?;'
+                # Alustame päringuga, mis valib kõik mitte-petised mängijad (cheater = 0)
+                sql = f'SELECT name, quess, steps, game_length FROM {self.table} WHERE cheater = ?;'
                 self.cursor.execute(sql, (0,))
 
                 data = self.cursor.fetchall()
-                return data
+
+                # Sorteerimine: esmalt sammude järgi, seejärel mängu kestuse järgi ja lõpuks nime järgi
+                data.sort(key=lambda x: (x[2], x[3], x[0]))  # x[2] on steps, x[3] on game_length, x[0] on name
+
+                # Piirame tulemused 10 esimesele
+                return data[:10]
+
             except sqlite3.Error as error:
                 print(f'Kirjete lugemisel ilmnes tõrge: {error}')
                 return []
             finally:
                 self.close_connection()
         else:
-            print('Ühendus andmebaasiga puudub. Palun loo ühendus andmebaasiga')
+            print('Ühendus andmebaasiga puudub. Palun loo ühendus andmebaasiga.')
+
+    def for_export(self):
+        if self.cursor:
+            try:
+                # Päring, mis valib kogu andmebaasi sisu
+                sql = f'SELECT * FROM {self.table};'
+                self.cursor.execute(sql)
+
+                data = self.cursor.fetchall()
+
+                # Sorteerimine: esmalt sammude järgi, seejärel mängu kestuse järgi ja viimaaks nime järgi
+                data.sort(key=lambda x: (x[2], x[4], x[1]))  # x[2] on steps, x[4] on game_length, x[1] on name
+
+                return data
+
+            except sqlite3.Error as error:
+                print(f'Kirjete lugemisel ilmnes tõrge: {error}')
+                return []
+            finally:
+                self.close_connection()
+        else:
+            print('Ühendus andmebaasiga puudub. Palun loo ühendus andmebaasiga.')
+
 
 
 
